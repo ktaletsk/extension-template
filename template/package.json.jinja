@@ -43,7 +43,7 @@
         "clean:all": "jlpm clean:lib && jlpm clean:labextension && jlpm clean:lintcache",
         "eslint": "jlpm eslint:check --fix",
         "eslint:check": "eslint . --cache --ext .ts,.tsx",
-        "install:extension": "jlpm build",
+        "install:extension": "python -c \"import pathlib,json,subprocess;[p.unlink() for d in json.loads(subprocess.check_output(['jupyter','--paths','--json']))['data'] for p in [pathlib.Path(d,'labextensions','{{ labextension_name }}')] if p.is_symlink()]\" 2>/dev/null; jlpm build",
         "lint": "jlpm stylelint && jlpm prettier && jlpm eslint",
         "lint:check": "jlpm stylelint:check && jlpm prettier:check && jlpm eslint:check",
         "prettier": "jlpm prettier:base --write --list-different",
